@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ru.skillbox</groupId>
-  <artifactId>simple_mvc</artifactId>
+  <artifactId>simple_mvc_2</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>simple_mvc Maven Webapp</name>
+  <name>simple_mvc_2 Maven Webapp</name>
   <url>http://www.example.com</url>
 
   <properties>
@@ -18,13 +18,33 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.3.20</version>
+      <version>5.3.9</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.15.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.15.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.15.0</version>
     </dependency>
     <dependency>
       <groupId>org.thymeleaf</groupId>
@@ -33,9 +53,8 @@
     </dependency>
   </dependencies>
 
-
   <build>
-    <finalName>simple_mvc</finalName>
+    <finalName>simple_mvc_2</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
