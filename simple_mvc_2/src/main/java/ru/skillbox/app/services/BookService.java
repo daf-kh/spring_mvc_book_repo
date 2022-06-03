@@ -23,11 +23,11 @@ public class BookService {
         bookRepo.store(book);
     }
 
-    public boolean removeBookById(Integer bookIdToRemove) {
-        return bookRepo.removeItemById(bookIdToRemove);
+    public void removeBookById(Integer bookIdToRemove) {
+        bookRepo.removeItemById(bookIdToRemove);
     }
 
-    public boolean removeBookByString(String bookRegexToRemove) {
-        return bookRepo.removeItemByString(bookRegexToRemove);
+    public void removeBookByString(String bookRegexToRemove) {
+        bookRepo.removeItemByString(bookRegexToRemove);
     }
 }

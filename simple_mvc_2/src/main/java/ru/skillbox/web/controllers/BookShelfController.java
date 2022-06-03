@@ -45,10 +45,11 @@ public class BookShelfController {
         //Разделила на два случая - если написали число и если нет
         //Число проверяем старым методом проверки id
         //String проверяем новым методом
-        if(bookRegexToRemove.matches("^\\d+")) {
+        //Проверяем на пустую строку, чтобы она не совпадала с такими же пустыми названиями/авторами
+        if(bookRegexToRemove.matches("^\\d+") && !bookRegexToRemove.trim().equals("")) {
             bookService.removeBookById(Integer.valueOf(bookRegexToRemove));
         }
-        else {
+        else if(!bookRegexToRemove.trim().equals("")) {
             bookService.removeBookByString(bookRegexToRemove);
         }
         return "redirect:/books/shelf";

@@ -34,31 +34,26 @@ public class BookRepository implements ProjectRepository<Book>{
     }
 
     @Override
-    public boolean removeItemById(Integer bookIdToRemove) {
+    public void removeItemById(Integer bookIdToRemove) {
         for(Book book : retrieveAll()) {
             if(book.getId().equals(bookIdToRemove)) {
                 logger.info("remove book completed: " + book);
-                return repo.remove(book);
+                repo.remove(book);
             }
         }
-        logger.info("remove book FAIL");
-        return false;
+        //В случае, если не находим в id - пересылаем в метод поиска по тексту
+        removeItemByString(String.valueOf(bookIdToRemove));
     }
 
     @Override
-    public boolean removeItemByString(String bookRegexToRemove) {
+    public void removeItemByString(String bookRegexToRemove) {
         for(Book book : retrieveAll()) {
-            //Проверяем, есть ли такие автор или название и удаляем все такие книги и возвращаем true в конце
+            //Проверяем, есть ли такие автор или название и удаляем все такие книги
             if(book.getAuthor().equals(bookRegexToRemove) || book.getTitle().equals(bookRegexToRemove)) {
                 logger.info("remove book completed: " + book);
                 repo.remove(book);
             }
-            else {
-                logger.info("remove book FAIL");
-                return false;
-            }
         }
-        return true;
     }
 
 }
