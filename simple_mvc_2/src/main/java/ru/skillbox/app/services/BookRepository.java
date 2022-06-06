@@ -39,6 +39,8 @@ public class BookRepository implements ProjectRepository<Book>{
             if(book.getId().equals(bookIdToRemove)) {
                 logger.info("remove book completed: " + book);
                 repo.remove(book);
+                //Если вдруг id и количество страниц одинаковые, надо проверить на это - отправляем в метод для String
+                removeItemByString(String.valueOf(bookIdToRemove));
             }
         }
         //В случае, если не находим в id - пересылаем в метод поиска по тексту
@@ -49,7 +51,9 @@ public class BookRepository implements ProjectRepository<Book>{
     public void removeItemByString(String bookRegexToRemove) {
         for(Book book : retrieveAll()) {
             //Проверяем, есть ли такие автор или название и удаляем все такие книги
-            if(book.getAuthor().equals(bookRegexToRemove) || book.getTitle().equals(bookRegexToRemove)) {
+            //Также проверяем по количеству страниц
+            if(book.getAuthor().equals(bookRegexToRemove) || book.getTitle().equals(bookRegexToRemove)
+            || book.getSize().equals(bookRegexToRemove)) {
                 logger.info("remove book completed: " + book);
                 repo.remove(book);
             }
