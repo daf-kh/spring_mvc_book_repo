@@ -1,10 +1,20 @@
 package ru.skillbox.web.dto;
 
+import javax.validation.constraints.*;
+
 public class Book {
     private Integer id;
+    @NotBlank
+    @Size(max = 125)
+    @Pattern(regexp = "[\\w -]+")
     private String author;
+    @NotBlank
+    @Size(max = 125)
+    //Название может быть любым - и с цифрами, и с чем угодно, поэтому не буду устанавливать ограничений, кроме размера
     private String title;
-    private String size;
+    @NotNull
+    @Digits(integer = 4, fraction = 0)
+    private Integer size;
 
     public Integer getId() {
         return id;
@@ -30,11 +40,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 

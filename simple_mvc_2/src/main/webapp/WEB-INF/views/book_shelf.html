@@ -34,13 +34,19 @@
             <table>
                 <tr>
                     <td>
-                        <input type="text" placeholder="author" th:field="*{author}">
+                        <input type="text" title="field value must be filled" placeholder="author" th:field="*{author}">
+                        <br>
+                        <sub th:if="${#fields.hasErrors('author')}">error</sub>
                     </td>
                     <td>
-                        <input type="text" placeholder="book_title" th:field="*{title}">
+                        <input type="text" title="field value must be filled" placeholder="book_title" th:field="*{title}">
+                        <br>
+                        <sub th:if="${#fields.hasErrors('title')}">error</sub>
                     </td>
                     <td>
-                        <input type="text" placeholder="size (pages)" th:field="*{size}">
+                        <input type="text" title="field value must be filled by digit less than 4 signs" placeholder="size (pages)" th:field="*{size}">
+                        <br>
+                        <sub th:if="${#fields.hasErrors('size')}">error</sub>
                     </td>
                     <td>
                         <input type="submit" value="save">
@@ -49,14 +55,31 @@
             </table>
         </form>
 
-        <form method="post" th:action="@{/books/removeByRegex}">
+        <form method="post" th:action="@{/books/remove}" th:object="${bookRegexToRemove}">
             <table>
                 <tr>
                     <td>
-                        <input type="text" placeholder="regex" th:name="queryRegex">
+                        <input type="text" placeholder="regex to remove" th:field="*{regex}">
                     </td>
                     <td>
-                        <input type="submit" value="remove by regex">
+                        <input type="submit" value="remove">
+                    </td>
+                    <td th:if="${notFoundRegex}" class="error">
+                        <p>Wrong regex or not found</p>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="post" th:action="@{/books/uploadFile}" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        <input type="file" name="file"/>
+                    </td>
+                    <td th:if="${notSelectedFile}" class="error">Not selected file to upload</td>
+                    <td>
+                        <input type="submit" value="Upload">
                     </td>
                 </tr>
             </table>

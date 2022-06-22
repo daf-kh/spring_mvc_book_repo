@@ -18,11 +18,12 @@
 <body>
     <div id="login_form">
         <form method="post" th:action="@{/login/auth}" th:object="${loginForm}">
-            <img class="login_item" th:src="@{/images/book_icon.png}">
+            <img class="login_item" th:src="@{/images/book_icon.jpg}" width="200px">
             <br>
             <input class="login_item" type="text" placeholder="enter username" th:field="*{username}">
             <br>
             <input class="login_item" type="password" placeholder="password" th:field="*{password}">
+            <p th:if="${#fields.hasErrors()}">Invalid username or password!</p>
             <br>
             <input class="login_item" type="submit" value="login">
         </form>

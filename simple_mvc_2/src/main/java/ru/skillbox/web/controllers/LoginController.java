@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.skillbox.app.exceptions.BookShelfLoginException;
 import ru.skillbox.app.services.LoginService;
 import ru.skillbox.web.dto.LoginForm;
 
@@ -32,14 +34,21 @@ public class LoginController {
     }
 
     @PostMapping("/auth")
-    public String authenticate(LoginForm loginForm) {
+    public String authenticate(LoginForm loginForm) throws BookShelfLoginException {
         if(loginService.authenticate(loginForm)) {
             logger.info("login OK redirect to book shelf");
             return "redirect:/books/shelf";
         }
         else {
             logger.info("login FAIL redirect back to login");
-            return "redirect:/login";
+            throw new BookShelfLoginException("invalid username or password");
         }
     }
+
+    @ExceptionHandler(BookShelfLoginException.class)
+    public String handleError(Model model, BookShelfLoginException exception) {
+        model.addAttribute("errorMessage", exception.getMessage());
+        return "errors/404";
+    }
+
 }
